@@ -1,20 +1,43 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class Rules : MonoBehaviour
 {
-        public int health = 3;
-        public GameObject[] hearts;
+        public int health;
 
-        void OnTriggerEnter2D() 
+        public Image[] hearts;
+        public Sprite redHeart;
+
+        void Start()
+        {
+                ScoreManager.scoreValue = 0;
+                Spawner.timer = 2f;
+        }
+
+        void Update() 
+        {
+                for (int i = 0; i < hearts.Length; i++)
+                {
+                        if(i <  health)
+                        {
+                                hearts[i].enabled = true;
+                        }
+                        else
+                        {
+                                hearts[i].enabled = false;
+                        }
+                }
+        }
+
+         void OnTriggerEnter2D() 
         {
                 Debug.Log("Collision");
-                Destroy(hearts[health - 1].gameObject);
                 health--;
 
-                if(health <= 0)
+                if(health == 0)
                 {
                         Die(); 
                 }
@@ -25,4 +48,5 @@ public class Rules : MonoBehaviour
             Destroy(gameObject);
             SceneManager.LoadScene("Game Over");
         }
+
 }

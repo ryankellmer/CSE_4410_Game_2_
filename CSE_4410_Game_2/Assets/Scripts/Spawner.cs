@@ -8,8 +8,10 @@ public class Spawner : MonoBehaviour
         public float topBound = 4.3f;
 
         public GameObject enemyPrefab;
-        public float timer = 2f;
+        public GameObject asteroidPrefab;
+        public static float timer;
 
+        public bool isAsteroid = false;
 
         // Start is called before the first frame update
         void Start()
@@ -29,7 +31,16 @@ public class Spawner : MonoBehaviour
                 Vector3 temp = transform.position;
                 temp.y = positionY;
 
-                Instantiate(enemyPrefab, temp, Quaternion.Euler(0f, 0f, 90f));
+                if(!isAsteroid)
+                {
+                         Instantiate(enemyPrefab, temp, Quaternion.Euler(0f, 0f, 90f));
+                        isAsteroid = true;
+                }
+               else
+               {
+                       Instantiate(asteroidPrefab, temp, Quaternion.Euler(0f, 0f, 90f));
+                       isAsteroid = false;
+               }
 
                 Invoke("SpawnEnemy", timer);
         }

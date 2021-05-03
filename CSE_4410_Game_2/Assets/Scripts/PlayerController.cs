@@ -8,6 +8,9 @@ public class PlayerController : MonoBehaviour
         public float topBoundary;
         public float bottomBoundary;
 
+         public float leftBoundary;
+        public float rightBoundary;
+
         [SerializeField]
         private GameObject playerLaser;
 
@@ -47,7 +50,7 @@ public class PlayerController : MonoBehaviour
                         transform.position = temp;
 
             }
-            else if(Input.GetAxisRaw("Vertical") < 0f)
+            if(Input.GetAxisRaw("Vertical") < 0f)
             {
                         Vector3 temp = transform.position;
                         temp.y -= speed * Time.deltaTime;
@@ -55,6 +58,32 @@ public class PlayerController : MonoBehaviour
                          if(temp.y < bottomBoundary)
                         {
                             temp.y = bottomBoundary;
+                        }
+
+                        transform.position = temp;
+            }
+
+            if(Input.GetAxisRaw("Horizontal") > 0f)
+            {
+                        Vector3 temp = transform.position;
+                        temp.x += speed * Time.deltaTime;
+
+                         if(temp.x > rightBoundary)
+                        {
+                            temp.x = rightBoundary;
+                        }
+
+                        transform.position = temp;
+            }
+
+             if(Input.GetAxisRaw("Horizontal") < 0f)
+            {
+                        Vector3 temp = transform.position;
+                        temp.x -= speed * Time.deltaTime;
+
+                         if(temp.x < leftBoundary)
+                        {
+                            temp.x = leftBoundary;
                         }
 
                         transform.position = temp;
